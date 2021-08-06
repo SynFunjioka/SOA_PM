@@ -1,0 +1,14 @@
+service: RaivosInv-orquestador
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  stage: dev
+  region: us-east-2
+functions:
+  app:
+    handler: server.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
