@@ -175,7 +175,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/RaivosInv-ventas/dev/1628209162227-2021-08-06T00:19:22.227Z/RaivosInv-ventas.zip"
+          "S3Key": "serverless/RaivosInv-ventas/dev/1628280734669-2021-08-06T20:12:14.669Z/RaivosInv-ventas.zip"
         },
         "Handler": "server.handler",
         "Runtime": "nodejs12.x",
@@ -193,14 +193,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionFQudDJhkxPvU5bvpSz3adajm3wBELPfbsZbGtCVRc": {
+    "AppLambdaVersionFVKantHuHHVkrrj3PSRJYW6C0z43qMvplnbUjQ0Lc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "3iYEK0KWpes4sCsDn++RGzlgzQy7uO3BBV2n4PL0CBA="
+        "CodeSha256": "IjqXk7MUeHnSNEOTGyxHIGEO/Q7Dsnvi/xEGefjFc5A="
       }
     },
     "ApiGatewayRestApi": {
@@ -325,7 +325,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1628209130234": {
+    "ApiGatewayDeployment1628280713446": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -388,7 +388,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionFQudDJhkxPvU5bvpSz3adajm3wBELPfbsZbGtCVRc"
+        "Ref": "AppLambdaVersionFVKantHuHHVkrrj3PSRJYW6C0z43qMvplnbUjQ0Lc"
       },
       "Export": {
         "Name": "sls-RaivosInv-ventas-dev-AppLambdaFunctionQualifiedArn"

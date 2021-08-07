@@ -1,5 +1,4 @@
 const express = require('express')
-const request = require('request');
 const serverless = require('serverless-http')
 const cors = require('cors')
 const bodyparser = require('body-parser')
@@ -18,8 +17,10 @@ app.get("/", function (req, res) {
     res.send({ "stage": "dev" })
 })
 
+//♥
 app.post("/createSale", jsonParser, function (req, res) {
     var productos = req.body.productos;
+    console.log(productos);
     let id = uuidv4();
     let date = new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });
 
@@ -53,7 +54,7 @@ app.post("/createSale", jsonParser, function (req, res) {
     })()
 })
 
-app.get("/getAll", function (req, res) {
+app.get("/getAll-Sales", function (req, res) {
     var params = {
         TableName: tableName
     }
@@ -134,12 +135,8 @@ app.delete("/deleteStudent/:sk", function(req, res){
     })
 })
 
-var server = app.listen(4000, function () {
-    console.log("Corriendo en localhost:4000")
-})
-
-function changeQuantityVal(product, quantity){
-    request.put("https://fqcegcp3w4.execute-api.us-east-2.amazonaws.com/dev/Inventory/productQ/"+product, quantity)
-}
+var server = app.listen(4002, function () {
+    console.log("Corriendo en localhost:4002")
+});
 
 module.exports.handler = serverless(app);

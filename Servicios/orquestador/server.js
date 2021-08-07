@@ -10,6 +10,7 @@ const app = express();
 //urls
 const urlUsuarios = 'https://7o423u0o12.execute-api.us-east-2.amazonaws.com/dev';
 const urlProductos = 'https://fqcegcp3w4.execute-api.us-east-2.amazonaws.com/dev';
+const urlVentas = 'https://p7pyqgkvu6.execute-api.us-east-2.amazonaws.com/dev';
 
 app.use(cors());
 
@@ -172,6 +173,65 @@ app.put("/Inventory/productQ/:sk", jsonParser, function(req, res){
     .then(function(response){
         res.status(200).send(response.data);
     }).catch(err => {res.status(500).send(err);} );
+});
+
+app.delete("/deleteProduct/:sk", function(req, res){
+    axios.delete(urlProductos + "/deleteProduct/"+ req.params.sk)
+    .then(function(response){
+        res.status(200).send(response.data);
+    }).catch(err => {res.status(500).send(err);} );
+})
+
+//_____________________________________________
+
+
+app.post("/createSale", jsonParser, function (req, res){
+    (async () => {
+        try{
+            let data = {
+                "productos": req.body.productos,
+                "cliente": req.body.cliente,
+                "telCliente": req.body.telCliente
+            };
+            await axios.post(urlVentas + "/createSale", data)
+            .then(function(response){
+                console.log(response.data);
+                res.status(200).send(response.data);
+            }).catch(err => {res.status(500).send(err); console.log(err);} );
+
+            await UpdateQuantityProducts(req.body.productos);
+
+        }catch(err){
+            res.status(500).send(err);
+        }
+    })();
+});
+
+async function UpdateQuantityProducts(products){
+    let response = [];
+    try {
+        for(i = 0; i < products.length; i++){
+            console.log("API:", "localhost:4005/Inventory/productQ/" + products[i].code);
+            let dataInv = {
+                "quantity": products[i].quantity
+            }
+            response[i] = await axios.put(urlProductos + "/Inventory/productQ/" + products[i].code, dataInv)
+                .then(function(response){ 
+                    console.log("Ok", response);
+                }).catch(err => {res.status(500).send(err);} );
+        }
+        res.status(200).send(response);
+    }catch{
+
+    }
+}
+
+app.get("/getAll-Sales", function (req, res){
+    axios.get(urlUsuarios + "/getAll-Sales")
+    .then(function(response){
+        //console.log(response);
+        res.status(200).send(response.data);
+    }).catch(err => {res.status(500).send(err)} );
 });
 
 var server = app.listen(4005, function () {

@@ -185,7 +185,7 @@ app.put("/Inventory/productQ/:sk", jsonParser, function (req, res) {
             "pk": "I_Inventario",
             "sk": "InvProduct-" + req.params.sk
         },
-        UpdateExpression: "set quantity = :q, changedAt = :ch",
+        UpdateExpression: "set quantity = quantity + :q, changedAt = :ch",
         ExpressionAttributeValues: {
             ":q": req.body.quantity,
             ":ch": date
@@ -220,10 +220,11 @@ app.delete("/deleteProduct/:sk", function(req, res){
 
     dynamodb.delete(paramsInvP, function(err, response){
         if (err) res.status(500).send(err);
-        else {
-            dynamodb.delete(paramsProduct, function(err, responseInvP){
-                if (err) res.status(500).send(err); return;
-            });
+    });
+
+    dynamodb.delete(paramsProduct, function(err, responseInvP){
+        if (err) res.status(500).send(err);
+        else{
             res.status(200).send("Deleted");
         }
     });
