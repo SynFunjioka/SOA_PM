@@ -15,7 +15,7 @@ app.use(cors());
 
 app.get("/", function (req, res) {
     res.send({ "stage": "dev" })
-})
+});
 
 //♥
 app.post("/createSale", jsonParser, function (req, res) {
@@ -52,35 +52,37 @@ app.post("/createSale", jsonParser, function (req, res) {
             return res.status(500).send(error);
         }
     })()
-})
+});
 
+//♥
 app.get("/getAll-Sales", function (req, res) {
     var params = {
-        TableName: tableName
+        TableName: tableName,
+        FilterExpression: "pk = :pk",
+        ExpressionAttributeValues: {
+            ":pk": "V_Ventas"
+        }
     }
 
     dynamodb.scan(params, function (err, response) {
         if (err) res.status(500).send(err)
         else {
-            res.status(200).send(response.Items)
+            res.status(200).send(response)
         }
     })
-})
+});
 
-app.get("/getStudent/:name", function (req, res) {
+//♥
+app.get("/getSale/:sk", function (req, res) {
     (async () => {
         try {
             var params = {
                 TableName: tableName,
-                KeyConditionExpression: "pk = :pk",
+                KeyConditionExpression: "pk = :pk AND sk = :sk",
                 ExpressionAttributeValues: {
-                    ":pk": "Student",
-                    ":name": req.params.name
-                },
-                ExpressionAttributeNames: {
-                    "#name": "name"
-                },
-                FilterExpression: "#name = :name"
+                    ":pk": "V_Ventas",
+                    ":sk": req.params.sk
+                }
             };
 
             dynamodb.query(params, function (err, response) {
@@ -93,50 +95,39 @@ app.get("/getStudent/:name", function (req, res) {
             res.status(500).send(err)
         }
     })()
-})
+});
 
-app.put("/updateStudent/:sk", jsonParser, function (req, res) {
-    var params = {
-        TableName: tableName,
-        Key: {
-            "pk": "Student",
-            "sk": req.params.sk
-        },
-        UpdateExpression: "set lastname = :l, email = :e",
-        ExpressionAttributeValues: {
-            ":l": req.body.lastname,
-            ":e": req.body.email
-        },
-        ReturnValues: "UPDATED_NEW"
-    };
+//♥
+app.get("/getSales/user/:cliente", function (req, res) {
+    (async () => {
+        try {
+            var params = {
+                TableName: tableName,
+                KeyConditionExpression: "pk = :pk",
+                ExpressionAttributeValues: {
+                    ":pk": "V_Ventas",
+                    ":cliente": req.params.cliente,
+                },
+                ExpressionAttributeNames: {
+                    "#cliente": "cliente"
+                },
+                FilterExpression: "#cliente = :cliente"
+            };
 
-    dynamodb.update(params, function (err, response) {
-        if (err) res.status(500).send(err)
-        else {
-            res.status(200).send(response)
+            dynamodb.query(params, function (err, response) {
+                if (err) res.status(500).send(err)
+                else {
+                    res.status(200).send(response.Items)
+                }
+            })
+        } catch (err) {
+            res.status(500).send(err)
         }
-    })
-})
-
-app.delete("/deleteStudent/:sk", function(req, res){
-    var params = {
-        TableName: tableName,
-        Key: {
-            "pk": "Student",
-            "sk": req.params.sk
-        }
-    };
-
-    dynamodb.delete(params, function(err, response){
-        if (err) res.status(500).send(err)
-        else {
-            res.status(200).send("Deleted")
-        }
-    })
-})
+    })()
+});
 
 var server = app.listen(4002, function () {
-    console.log("Corriendo en localhost:4002")
+    console.log("Corriendo en localhost:4002");
 });
 
 module.exports.handler = serverless(app);

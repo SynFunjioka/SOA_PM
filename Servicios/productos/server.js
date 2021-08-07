@@ -201,6 +201,7 @@ app.put("/Inventory/productQ/:sk", jsonParser, function (req, res) {
     });
 });
 
+//♥
 app.delete("/deleteProduct/:sk", function(req, res){
     var paramsProduct = {
         TableName: tableName,

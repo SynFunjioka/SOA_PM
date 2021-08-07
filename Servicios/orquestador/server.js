@@ -175,6 +175,7 @@ app.put("/Inventory/productQ/:sk", jsonParser, function(req, res){
     }).catch(err => {res.status(500).send(err);} );
 });
 
+//♥
 app.delete("/deleteProduct/:sk", function(req, res){
     axios.delete(urlProductos + "/deleteProduct/"+ req.params.sk)
     .then(function(response){
@@ -226,10 +227,27 @@ async function UpdateQuantityProducts(products){
     }
 }
 
+//♥
 app.get("/getAll-Sales", function (req, res){
-    axios.get(urlUsuarios + "/getAll-Sales")
+    axios.get(urlVentas + "/getAll-Sales")
     .then(function(response){
         //console.log(response);
+        res.status(200).send(response.data);
+    }).catch(err => {res.status(500).send(err)} );
+});
+
+//♥
+app.get("/getSale/:sk", function (req, res){
+    axios.get(urlVentas + "/getSale/" + req.params.sk)
+    .then(function(response){
+        res.status(200).send(response.data);
+    }).catch(err => {res.status(500).send(err)} );
+});
+
+//♥
+app.get("/getSales/user/:cliente", function (req, res){
+    axios.get(urlVentas + "/getSales/user/" + req.params.cliente)
+    .then(function(response){
         res.status(200).send(response.data);
     }).catch(err => {res.status(500).send(err)} );
 });

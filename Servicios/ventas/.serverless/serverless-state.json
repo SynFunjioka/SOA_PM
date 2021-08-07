@@ -193,7 +193,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/RaivosInv-ventas/dev/1628280734669-2021-08-06T20:12:14.669Z/RaivosInv-ventas.zip"
+                "S3Key": "serverless/RaivosInv-ventas/dev/1628307415776-2021-08-07T03:36:55.776Z/RaivosInv-ventas.zip"
               },
               "Handler": "server.handler",
               "Runtime": "nodejs12.x",
@@ -211,14 +211,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionFVKantHuHHVkrrj3PSRJYW6C0z43qMvplnbUjQ0Lc": {
+          "AppLambdaVersion8o4sNzcbVXrwz1j57J4qISdcU1nRdlHjeQKCxRlXuM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "IjqXk7MUeHnSNEOTGyxHIGEO/Q7Dsnvi/xEGefjFc5A="
+              "CodeSha256": "1PorDaPg/LKzvyPxdY03bzEh1TkIl+G0P++G378jZM4="
             }
           },
           "ApiGatewayRestApi": {
@@ -343,7 +343,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1628280713446": {
+          "ApiGatewayDeployment1628307409265": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -406,7 +406,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionFVKantHuHHVkrrj3PSRJYW6C0z43qMvplnbUjQ0Lc"
+              "Ref": "AppLambdaVersion8o4sNzcbVXrwz1j57J4qISdcU1nRdlHjeQKCxRlXuM"
             },
             "Export": {
               "Name": "sls-RaivosInv-ventas-dev-AppLambdaFunctionQualifiedArn"
@@ -542,7 +542,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionFVKantHuHHVkrrj3PSRJYW6C0z43qMvplnbUjQ0Lc"
+        "versionLogicalId": "AppLambdaVersion8o4sNzcbVXrwz1j57J4qISdcU1nRdlHjeQKCxRlXuM"
       }
     },
     "configValidationMode": "warn",
@@ -563,7 +563,7 @@
     "artifact": "C:\\Users\\alanf\\Desktop\\Trabajos Escuela\\9A\\SOA\\ProjectSOA_PM\\Servicios\\ventas\\.serverless\\RaivosInv-ventas.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/RaivosInv-ventas/dev/1628280734669-2021-08-06T20:12:14.669Z",
+    "artifactDirectoryName": "serverless/RaivosInv-ventas/dev/1628307415776-2021-08-07T03:36:55.776Z",
     "artifact": "RaivosInv-ventas.zip"
   }
 }
