@@ -108,7 +108,11 @@ app.post("/Inventory/createProduct", jsonParser, function (req, res) {
 app.get("/getAll-Products", function (req, res) {
     var params = {
         TableName: tableName,
-        KeyConditionExpression: "(pk = 'I_Inventario') AND (begins_with(sk, 'InvProduct'))"
+        KeyConditionExpression: "pk = :pk AND begins_with(sk, :sk)",
+        ExpressionAttributeValues: {
+            ":pk": "I_Inventario",
+            ":sk": "InvProduct-"
+        }
     };
 
     dynamodb.scan(params, function (err, response) {

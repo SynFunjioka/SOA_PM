@@ -49,7 +49,7 @@ app.get("/login/:email", function (req, res){
     });
 });
 
-//!!!!
+//♥
 app.post("/createEmployee", jsonParser, function (req, res){
     (async => {
         try{
@@ -65,7 +65,7 @@ app.post("/createEmployee", jsonParser, function (req, res){
             };
             axios.post(urlUsuarios + "/createEmployee", data)
             .then(function(response){
-                res.status(200).send(response);
+                res.status(200).send(response.data);
             }).catch(err => {res.status(500).send(err);} );
         }catch(err){
             res.status(500).send(err);
@@ -90,7 +90,7 @@ app.put("/updateEmployee/:sk", jsonParser, function(req, res){
     }).catch(err => {res.status(500).send(err);} );
 });
 
-//!!!
+//♥
 app.delete("/deleteEmployee/:sk", function(req, res){
     axios.delete(urlUsuarios + "/deleteEmployee/"+ req.params.sk)
     .then(function(response){
@@ -118,7 +118,7 @@ app.get("/getProductData/:sk", function (req, res){
     }).catch(err => {res.status(500).send(err)} );
 });
 
-//!!◘
+//♥
 app.post("/createProduct", jsonParser, function (req, res){
     (async => {
         try{
@@ -185,7 +185,7 @@ app.delete("/deleteProduct/:sk", function(req, res){
 
 //_____________________________________________
 
-
+//♥
 app.post("/createSale", jsonParser, function (req, res){
     (async () => {
         try{

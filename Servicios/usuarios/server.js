@@ -169,7 +169,7 @@ app.put("/updateEmployee/:sk", jsonParser, function (req, res) {
     });
 });
 
-//!!!
+//♥
 app.delete("/deleteEmployee/:sk", function(req, res){
     var params = {
         TableName: tableName,
