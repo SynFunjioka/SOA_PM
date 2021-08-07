@@ -20,7 +20,6 @@ app.get("/", function (req, res) {
 //♥
 app.post("/createSale", jsonParser, function (req, res) {
     var productos = req.body.productos;
-    console.log(productos);
     let id = uuidv4();
     let date = new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });
 

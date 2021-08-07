@@ -57,11 +57,14 @@ app.post("/createEmployee", jsonParser, function (req, res) {
     })()
 });
 
-//!!!
+//◘
 app.get("/getAll-Employees", function (req, res) {
     var params = {
         TableName: tableName,
-        KeyConditionExpression: "pk = E_Empleado"
+        FilterExpression: "pk = :pk",
+        ExpressionAttributeValues: {
+            ":pk": "E_Empleado"
+        }
     };
 
     dynamodb.scan(params, function (err, response) {
@@ -115,7 +118,6 @@ app.get("/login/:email", function (req, res) {
             };
 
             dynamodb.query(params, function (err, response) {
-                console.log(params);
                 if (err) res.status(500).send(err);
                 else if(response.Items.length == 1) {
                     var respuesta = {

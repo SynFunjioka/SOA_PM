@@ -19,11 +19,10 @@ app.get("/", function (req, res) {
 });
 
 /*******USUARIOS */
-//!!!
+//♥
 app.get("/getAll-Employees", function (req, res){
     axios.get(urlUsuarios + "/getAll-Employees")
     .then(function(response){
-        //console.log(response);
         res.status(200).send(response.data);
     }).catch(err => {res.status(500).send(err)} );
 });
@@ -102,7 +101,7 @@ app.delete("/deleteEmployee/:sk", function(req, res){
 
 /*************PRODUCTOS**************/
 
-//!!!
+//♥ Regresa todos los productos del inventario ♥
 app.get("/getAll-Products", function (req, res){
     axios.get(urlProductos + "/getAll-Products")
     .then(function(response){
@@ -132,7 +131,6 @@ app.post("/createProduct", jsonParser, function (req, res){
             };
             axios.post(urlProductos + "/createProduct", data)
             .then(function(response){
-                console.log(response.data);
                 res.status(200).send(response.data);
             }).catch(err => {res.status(500).send(err)} );
 
@@ -196,9 +194,8 @@ app.post("/createSale", jsonParser, function (req, res){
             };
             await axios.post(urlVentas + "/createSale", data)
             .then(function(response){
-                console.log(response.data);
                 res.status(200).send(response.data);
-            }).catch(err => {res.status(500).send(err); console.log(err);} );
+            }).catch(err => {res.status(500).send(err);} );
 
             await UpdateQuantityProducts(req.body.productos);
 
@@ -212,13 +209,11 @@ async function UpdateQuantityProducts(products){
     let response = [];
     try {
         for(i = 0; i < products.length; i++){
-            console.log("API:", "localhost:4005/Inventory/productQ/" + products[i].code);
             let dataInv = {
                 "quantity": products[i].quantity
             }
             response[i] = await axios.put(urlProductos + "/Inventory/productQ/" + products[i].code, dataInv)
                 .then(function(response){ 
-                    console.log("Ok", response);
                 }).catch(err => {res.status(500).send(err);} );
         }
         res.status(200).send(response);
@@ -231,7 +226,6 @@ async function UpdateQuantityProducts(products){
 app.get("/getAll-Sales", function (req, res){
     axios.get(urlVentas + "/getAll-Sales")
     .then(function(response){
-        //console.log(response);
         res.status(200).send(response.data);
     }).catch(err => {res.status(500).send(err)} );
 });
@@ -245,7 +239,7 @@ app.get("/getSale/:sk", function (req, res){
 });
 
 //♥
-app.get("/getSales/user/:cliente", function (req, res){
+app.get("/getSales/user/:",cliente function (req, res){
     axios.get(urlVentas + "/getSales/user/" + req.params.cliente)
     .then(function(response){
         res.status(200).send(response.data);

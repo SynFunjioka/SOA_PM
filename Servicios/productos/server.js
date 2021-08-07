@@ -19,7 +19,6 @@ app.get("/", function (req, res) {
 
 //♥◘
 app.post("/createProduct", jsonParser, function (req, res) {
-    console.log(req.body)
     let id = uuidv4();
     let date = new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });
 
@@ -48,12 +47,9 @@ app.post("/createProduct", jsonParser, function (req, res) {
 
             dynamodb.put(paramsProduct, function (err, response) {
                 if (err){
-                    console.log('error al agregar datos del producto');
-                    console.log(err)
                     res.status(500).send(err);
                 }
                 else {
-                    console.log(dataProduct);
                     res.status(200).send(dataProduct);
                 }
             });
@@ -65,7 +61,6 @@ app.post("/createProduct", jsonParser, function (req, res) {
 
 //♥◘
 app.post("/Inventory/createProduct", jsonParser, function (req, res) {
-    console.log(req.body)
     let id = uuidv4();
     let date = new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });
 
@@ -90,7 +85,6 @@ app.post("/Inventory/createProduct", jsonParser, function (req, res) {
 
             dynamodb.put(paramsInv, function (err, response) {
                 if (err){
-                    console.log('error al agregar datos del producto');
                     res.status(500).send(err);
                 }
                 else {
@@ -98,21 +92,20 @@ app.post("/Inventory/createProduct", jsonParser, function (req, res) {
                 }
             });
         } catch (error) {
-            console.log("Aqui error")
             return res.status(500).send(error);
         }
     })();
 });
 
-//!!! - Trae todos los elementos de la tabla y no debe ser así
+//◘
 app.get("/getAll-Products", function (req, res) {
     var params = {
         TableName: tableName,
-        KeyConditionExpression: "pk = :pk AND begins_with(sk, :sk)",
         ExpressionAttributeValues: {
             ":pk": "I_Inventario",
             ":sk": "InvProduct-"
-        }
+        },
+        FilterExpression: "pk = :pk AND begins_with(sk, :sk)"
     };
 
     dynamodb.scan(params, function (err, response) {
