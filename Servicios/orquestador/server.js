@@ -36,16 +36,22 @@ app.get("/getEmployee/:sk", function (req, res){
 });
 
 //♥
-app.get("/login/:email", function (req, res){
-    axios.get(urlUsuarios + "/login/" + req.params.email)
-    .then(function(response){
-        res.status(200).send(response.data);
-    }).catch(err => {
-        var respuestaErr = [{
-            loged: false
-        }, err];
-        res.status(500).send(respuestaErr);
-    });
+app.post("/login", jsonParser, function (req, res){
+    (async () => {
+        let data = {
+            "email": req.body.email,
+            "password": req.body.password,
+        }
+        axios.post(urlUsuarios + "/login", data)
+        .then(function(response){
+            res.status(200).send(response.data);
+        }).catch(err => {
+            var respuestaErr = [{
+                loged: false
+            }, err];
+            res.status(500).send(respuestaErr);
+        });
+    })();
 });
 
 //♥
@@ -239,7 +245,7 @@ app.get("/getSale/:sk", function (req, res){
 });
 
 //♥
-app.get("/getSales/user/:",cliente function (req, res){
+app.get("/getSales/user/:", function (req, res){
     axios.get(urlVentas + "/getSales/user/" + req.params.cliente)
     .then(function(response){
         res.status(200).send(response.data);

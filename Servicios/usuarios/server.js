@@ -101,20 +101,28 @@ app.get("/getEmployee/:sk", function (req, res) {
 });
 
 //♥
-app.get("/login/:email", function (req, res) {
+app.post("/login", jsonParser, function (req, res) {
     (async () => {
         try {
+            let data = {
+                "email": req.body.email,
+                "password": req.body.password
+            }
+            console.log(data);
             var params = {
                 TableName: tableName,
                 KeyConditionExpression: "pk = :pk",
                 ExpressionAttributeValues: {
                     ":pk": "E_Empleado",
-                    ":email": req.params.email
+                    ":email": data.email,
+                    ":password": data.password
+                    
                 },
                 ExpressionAttributeNames: {
-                    "#email": "email"
+                    "#email": "email",
+                    "#password": "password"
                 },
-                FilterExpression: "#email = :email"
+                FilterExpression: "#email = :email AND #password = :password"
             };
 
             dynamodb.query(params, function (err, response) {
