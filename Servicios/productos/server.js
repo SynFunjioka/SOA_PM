@@ -141,6 +141,30 @@ app.get("/getProductData/:sk", function (req, res) {
     })();
 });
 
+app.get("/Inventory/:code", function (req, res) {
+    (async () => {
+        try {
+            var params = {
+                TableName: tableName,
+                KeyConditionExpression: "pk = :pk AND sk = :sk",
+                ExpressionAttributeValues: {
+                    ":pk": "I_Inventario",
+                    ":sk": "InvProduct-" +  req.params.code
+                },
+            };
+
+            dynamodb.query(params, function (err, response) {
+                if (err) res.status(500).send(err);
+                else {
+                    res.status(200).send(response.Items);
+                }
+            });
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    })();
+});
+
 //♥ Revisar si el codigo de barras cambie aqui o si se quita
 app.put("/updateProductData/:sk", jsonParser, function (req, res) {
     let date = new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });

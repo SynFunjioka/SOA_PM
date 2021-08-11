@@ -138,6 +138,7 @@ app.post("/login", jsonParser, function (req, res) {
                         loged: false
                     };
                     res.status(500).send(respuesta);
+                    return;
                 }
             });
         } catch (err) {

@@ -123,6 +123,13 @@ app.get("/getProductData/:sk", function (req, res){
     }).catch(err => {res.status(500).send(err)} );
 });
 
+app.get("/Inventory/:code", function (req, res){
+    axios.get(urlProductos + "/Inventory/" + req.params.code)
+    .then(function(response){
+        res.status(200).send(response.data);
+    }).catch(err => {res.status(500).send(err)} );
+});
+
 //♥
 app.post("/createProduct", jsonParser, function (req, res){
     (async => {
